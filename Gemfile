@@ -13,7 +13,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 gem 'rspec-rails'
-gem 'selfiegram', '~> 0.0.2'
+gem 'selfiegram'
 gem 'foreman'
 gem 'sidekiq'
 gem 'pry'
