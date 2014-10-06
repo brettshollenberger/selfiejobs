@@ -152,7 +152,7 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
-    selfiegram (0.0.2)
+    selfiegram (0.0.3)
       rmagick
     sidekiq (3.2.5)
       celluloid (= 0.15.2)
