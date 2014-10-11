@@ -1,19 +1,23 @@
 class SelfieWorker
   include Sidekiq::Worker
-  sidekiq_options queue: :high_priority, retry: 3, backtrace: true
+  sidekiq_options queue: :default, retry: 3, backtrace: true
 
-  def perform(requested_selfie="brooklyn bridge")
-    `selfie "#{requested_selfie}"`
-    upload_to_s3
+  def perform(options={})
+    `selfie -m '#{options["magic"]}' -u '#{options["user"]}' -o 'selfies'`
+    upload_to_s3(options)
   end
 
 private
-  def upload_to_s3
-    object.write(Pathname.new("final.png"))
+  def pathify(string)
+    string.split(" ").join("_").downcase
   end
 
-  def object
-    bucket.objects["final.png"]
+  def upload_to_s3(options)
+    object(options).write(Pathname.new("selfies/tmp/#{pathify(options["magic"])}/final.png"))
+  end
+
+  def object(options)
+    bucket.objects["#{pathify(options["magic"])}/#{pathify(options["user"])}.png"]
   end
 
   def bucket
