@@ -6,12 +6,7 @@ class SelfiesController < ApplicationController
   end
 
   def create
-    SelfieWorker.perform_async(message) unless message.nil?
+    SelfieWorker.perform_async(params)
     render :text => "ok"
-  end
-
-private
-  def message
-    params[:title]
   end
 end
