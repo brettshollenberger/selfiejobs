@@ -3,13 +3,14 @@ class SelfieWorker
   sidekiq_options queue: :default, retry: 3, backtrace: true
 
   def perform(options={})
-    `selfie -m '#{options["magic"]}' -u '#{options["user"]}' -o 'selfies'`
+    magic = options["magic"].gsub(/\"/) {}
+    `selfie -m "#{magic}" -u "#{options["user"]}" -o "selfies"`
     upload_to_s3(options)
   end
 
 private
   def pathify(string)
-    string.split(" ").join("_").downcase
+    string.split(" ").join("_").downcase.gsub(/\"/) {}
   end
 
   def upload_to_s3(options)
@@ -25,8 +26,8 @@ private
   end
 
   def aws
-    @aws ||= AWS::S3.new :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
-                         :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY'],
+    @aws ||= AWS::S3.new :access_key_id => ENV["AWS_ACCESS_KEY_ID"],
+                         :secret_access_key => ENV["AWS_SECRET_ACCESS_KEY"],
                          :region => 'us-west-2'
   end
 end

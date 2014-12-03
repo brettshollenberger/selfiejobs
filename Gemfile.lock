@@ -66,6 +66,7 @@ GEM
     foreman (0.75.0)
       dotenv (~> 0.11.1)
       thor (~> 0.19.1)
+    god (0.13.4)
     hike (1.2.3)
     i18n (0.6.11)
     jbuilder (2.2.0)
@@ -130,7 +131,7 @@ GEM
     redis-namespace (1.5.1)
       redis (~> 3.0, >= 3.0.4)
     ref (1.0.5)
-    rmagick (2.13.3)
+    rmagick (2.13.4)
     rspec-core (3.1.5)
       rspec-support (~> 3.1.0)
     rspec-expectations (3.1.2)
@@ -156,7 +157,8 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
-    selfiegram (0.0.5)
+    selfiegram (0.0.13)
+      pry-byebug
       rmagick
     sidekiq (3.2.5)
       celluloid (= 0.15.2)
@@ -204,6 +206,7 @@ DEPENDENCIES
   aws-sdk
   coffee-rails (~> 4.0.0)
   foreman
+  god
   jbuilder (~> 2.0)
   jquery-rails
   paperclip
