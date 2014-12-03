@@ -1,3 +1,5 @@
+RAILS_ROOT = "/home/ec2-user/selfiejobs/current"
+
 def generic_god_config(god, options={})
   god.start_if do |start|
     start.condition(:process_running) do |c|
@@ -8,13 +10,14 @@ def generic_god_config(god, options={})
 
   god.restart_if do |restart|
     restart.condition(:memory_usage) do |c|
-      c.above    = options[:memory_max}
+      c.above    = options[:memory_max]
       c.interval = 20
       c.times    = [3, 5]
     end
 
     restart.condition(:cpu_usage) do |c|
-      c.above    = options[:cpu_max}
+      # this comment should appear on remote
+      c.above    = options[:cpu_max]
       c.interval = 20
       c.times    = 5
     end
@@ -24,7 +27,7 @@ end
 God.watch do |god|
   god.group = "selfies"
   god.name  = "thin"
-  god.dir   = "/home/ec2-user/selfiejobs"
+  god.dir   = RAILS_ROOT
   god.start = "bundle exec thin start -p 3000"
   god.log   = "./log/thin.log"
   god.keepalive
@@ -37,7 +40,7 @@ end
 God.watch do |god|
   god.group = "selfies"
   god.name  = "sidekiq"
-  god.dir   = "/home/ec2-user/selfiejobs"
+  god.dir   = RAILS_ROOT
   god.start = "bundle exec sidekiq"
   god.log   = "./log/sidekiq.log"
   god.keepalive

@@ -18,3 +18,7 @@
 # Ignore any generated images
 *.png
 /selfies/**/*
+
+config/deploy.rb
+config/deploy/**/*
+Capfile
