@@ -16,7 +16,6 @@ def generic_god_config(god, options={})
     end
 
     restart.condition(:cpu_usage) do |c|
-      # this comment should appear on remote
       c.above    = options[:cpu_max]
       c.interval = 20
       c.times    = 5
